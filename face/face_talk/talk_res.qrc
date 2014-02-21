@@ -1,7 +1,0 @@
-<!DOCTYPE RCC>
-<RCC version="1.0">
-<qresource prefix="talk">
-  <file>resource/web.html</file>
-  <file>resource/message.html</file>
-</qresource>
-</RCC>

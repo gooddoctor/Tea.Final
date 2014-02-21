@@ -1,0 +1,7 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+  <qresource prefix="face_talk">
+    <file>resource/background.png</file>
+    <file>resource/send.png</file>
+  </qresource>
+</RCC>

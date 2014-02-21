@@ -1,0 +1,6 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+  <qresource prefix="face_widgets">
+    <file>resource/close.png</file>
+  </qresource>
+</RCC>

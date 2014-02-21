@@ -1,0 +1,1 @@
+HEADERS += $$PWD/t_object.hpp
