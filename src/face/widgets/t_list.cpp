@@ -21,6 +21,20 @@ TList::TList(const callback& format) {
   setAcceptDrops(true);
 }
 
-TList* TList::entry_select(const QString&) {
+int TList::get_selected_index() {
+  return entries_list->get_selected_index();
+}
+
+TList* TList::set_selected_index(int index) {
+  entries_list->set_selected_index(index);
+  return this;
+}
+
+int TList::size() {
+  return entries_list->size();
+}
+
+TList* TList::entry_select(const QString& entry) {
+  emit select(format_mapping[entry]);
   return this;
 }

@@ -13,22 +13,23 @@ class TPrimitiveTextItem : public QGraphicsTextItem,
 			   public TObject<TPrimitiveTextItem, 
 					  TPrimitiveTextObject, 
 					  TPrimitiveTextObject> {
-  public:
-    TPrimitiveTextItem(const QString& text);
-    TPrimitiveTextItem* highlight();
-    TPrimitiveTextItem* reset();
-  protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
+public:
+  TPrimitiveTextItem(const QString& text);
+  TPrimitiveTextItem* highlight();
+  TPrimitiveTextItem* reset();
+  TPrimitiveTextItem* select();
+protected:
+  void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
 };
 
 class TPrimitiveTextObject : public QObject { Q_OBJECT
-  public:
-    TPrimitiveTextObject(TPrimitiveTextItem* owner);
-    TPrimitiveTextObject* emit_select(TPrimitiveTextItem* source);
-  private:
-    TPrimitiveTextItem* owner;
-  signals:
-    void select(TPrimitiveTextItem* source);
+public:
+  TPrimitiveTextObject(TPrimitiveTextItem* owner);
+  TPrimitiveTextObject* emit_select(TPrimitiveTextItem* source);
+private:
+  TPrimitiveTextItem* owner;
+signals:
+  void select(TPrimitiveTextItem* source);
 };
 
 #endif

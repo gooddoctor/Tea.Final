@@ -64,6 +64,12 @@ TListItem* TListItem::add(const QString& entry) {
   return this;
 }
 
+TListItem* TListItem::entry_is_selected(TPrimitiveTextItem* entry) {
+  Q_ASSERT(std::find(entries.begin(), entries.end(), entry) != entries.end());
+  current_index = std::find(entries.begin(), entries.end(), entry) - entries.begin();
+  return this;
+}
+
 TListItem* TListItem::reset() {
   for (auto it = entries.begin(); it != entries.end(); it++)
     (*it)->reset();
@@ -84,6 +90,20 @@ TListItem* TListItem::scroll_up() {
     calculate();
   }
   return this;
+}
+
+TListItem* TListItem::set_selected_index(int index) {
+  Q_ASSERT(index >= 0 && index < entries.size());
+  entries[index]->select();
+  return this;
+}
+
+int TListItem::get_selected_index() {
+  return current_index;
+}
+
+int TListItem::size() {
+  return entries.size();
 }
 
 TListItem* TListItem::calculate() {
@@ -129,12 +149,18 @@ TListObject* TListObject::down_select() {
 
 TListObject* TListObject::entry_select(TPrimitiveTextItem* entry) {
   owner->reset();
+  owner->entry_is_selected(entry);
+  owner->signal()->emit_select(entry->toPlainText());
   entry->highlight();
-  emit select(entry->toPlainText());
   return this;
 }
 
 TListObject* TListObject::up_select() {
   owner->scroll_up();
+  return this;
+}
+
+TListObject* TListObject::emit_select(const QString& entry) {
+  emit select(entry);
   return this;
 }

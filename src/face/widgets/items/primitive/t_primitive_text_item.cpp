@@ -20,8 +20,13 @@ TPrimitiveTextItem* TPrimitiveTextItem::reset() {
   return this;
 }
 
-void TPrimitiveTextItem::mousePressEvent(QGraphicsSceneMouseEvent*) {
+TPrimitiveTextItem* TPrimitiveTextItem::select() {
   signal()->emit_select(this);
+  return this;
+}
+
+void TPrimitiveTextItem::mousePressEvent(QGraphicsSceneMouseEvent*) {
+  select();
 }
 
 /* TPrimitiveTextObject next */

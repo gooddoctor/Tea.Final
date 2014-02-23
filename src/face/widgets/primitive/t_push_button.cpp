@@ -19,6 +19,7 @@ TPushButton* TPushButton::set_look(const QPixmap& look) {
   this->look = look;
   scaled_look = look.scaled(look.width() - SCALE_FACTOR, look.height() - SCALE_FACTOR,
 			    Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  update();
   return this;
 }
 

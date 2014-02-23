@@ -7,8 +7,13 @@ namespace face {
   class Playlist : public TWidget { Q_OBJECT
   public:
     Playlist(int argc, char** argv);
+  public slots:
+    Playlist* previous_slot();
+    Playlist* next_slot();
   private:
     TList* entries_list;
+  signals:
+    void play_signal(const QString& entry);
   };
 }
 

@@ -1,3 +1,5 @@
+#include <QFileDialog>
+
 #include "face_player.hpp"
 
 using namespace face;
@@ -69,6 +71,7 @@ const char* DURATION_LABEL_STYLE =
 Player::Player(int, char**) : TWidget(QPixmap(":face_player/resource/background.png")) {
   open_button = new TPushButton(QPixmap(":face_player/resource/open.png"));
   open_button->setParent(this);
+  QObject::connect(open_button, SIGNAL(clicked()), this, SLOT(open_button_click_handler()));
   open_button->setGeometry(LEFT_MARGIN, TOP_MARGIN, open_button->sizeHint().width(),
 			   open_button->sizeHint().height());
 
@@ -76,8 +79,8 @@ Player::Player(int, char**) : TWidget(QPixmap(":face_player/resource/background.
   thumb_up_button->setParent(this);
   thumb_up_button->setGeometry(74, TOP_MARGIN, thumb_up_button->sizeHint().width(), 
                                thumb_up_button->sizeHint().height());
-
-  thumb_up_label = new QLabel("0");
+  					
+  thumb_up_label = new QLabel("0");			
   thumb_up_label->setParent(thumb_up_button);
   thumb_up_label->setStyleSheet(THUMB_UP_LABEL_STYLE);
   thumb_up_label->setGeometry(15, 13, thumb_up_label->sizeHint().width(),
@@ -127,16 +130,19 @@ Player::Player(int, char**) : TWidget(QPixmap(":face_player/resource/background.
 
   previous_button = new TPushButton(QPixmap(":face_player/resource/previous.png"));
   previous_button->setParent(this);
+  QObject::connect(previous_button, SIGNAL(clicked()), this, SIGNAL(previous_signal()));
   previous_button->setGeometry(41, TOP_MARGIN + 32, previous_button->sizeHint().width(), 
                                previous_button->sizeHint().height());
 
   play_button = new TPushButton(QPixmap(":face_player/resource/play.png"));
   play_button->setParent(this);
+  QObject::connect(play_button, SIGNAL(clicked()), this, SLOT(play_button_click_handler()));
   play_button->setGeometry(74, TOP_MARGIN + 32, play_button->sizeHint().width(), 
                            play_button->sizeHint().height());
 
   next_button = new TPushButton(QPixmap(":face_player/resource/next.png"));
   next_button->setParent(this);
+  QObject::connect(next_button, SIGNAL(clicked()), this, SIGNAL(next_signal()));
   next_button->setGeometry(107, TOP_MARGIN + 32, next_button->sizeHint().width(), 
                            next_button->sizeHint().height());
 
@@ -151,6 +157,7 @@ Player::Player(int, char**) : TWidget(QPixmap(":face_player/resource/background.
   volume_slider->setMaximum(100);
   volume_slider->setValue(25);
   volume_slider->setStyleSheet(VOLUME_SLIDER_STYLE);
+  QObject::connect(volume_slider, SIGNAL(valueChanged(int)), this, SIGNAL(volume_signal(int)));
   volume_slider->setGeometry(189, TOP_MARGIN + 32 + 32 / 2 - 5, 93, 10);
 
   repeat_button = new TPushButton(QPixmap(":face_player/resource/repeat.png"));
@@ -197,4 +204,31 @@ Player::Player(int, char**) : TWidget(QPixmap(":face_player/resource/background.
   favorite_button->setParent(content_widget);
   favorite_button->setGeometry(352, 26, favorite_button->sizeHint().width(), 
                                favorite_button->sizeHint().height());
+}
+
+Player* Player::play_slot(const QString& entry) {
+  Q_ASSERT(!entry.isEmpty());
+  emit open_signal(QUrl::fromLocalFile(entry), false);
+  if (is_play)
+    emit play_signal();
+  return this;
+}
+
+Player* Player::open_button_click_handler() {
+  QString local_file = QFileDialog::getOpenFileName(this);
+  if (!local_file.isEmpty())
+    emit open_signal(QUrl::fromLocalFile(local_file), true);
+  return this;
+}
+
+Player* Player::play_button_click_handler() {
+  if (is_play) {
+    play_button->set_look(QPixmap(":face_player/resource/play.png"));
+    emit pause_signal();
+  } else {
+    play_button->set_look(QPixmap(":face_player/resource/pause.png"));
+    emit play_signal();
+  }
+  is_play = !is_play;
+  return this;
 }

@@ -3,6 +3,7 @@
   <qresource prefix="face_player">
     <file>resource/background.png</file>
     <file>resource/open.png</file>
+    <file>resource/pause.png</file>
     <file>resource/thumb_up.png</file>
     <file>resource/thumb_down.png</file>
     <file>resource/talk.png</file>
