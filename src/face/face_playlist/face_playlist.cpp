@@ -19,6 +19,22 @@ Playlist::Playlist(int, char**) : TWidget(QPixmap(":face_playlist/resource/backg
 			    entries_list->sizeHint().height());
 }
 
+Playlist* Playlist::done_slot(bool terminated) {
+  if (!terminated)
+    switch (what_next) {
+    case NORMAL:
+      next_slot();
+      break;
+    case REPEAT:
+      entries_list->set_selected_index(entries_list->get_selected_index());
+      break;
+    case SHUFFLE:
+      entries_list->set_selected_index(rand() % entries_list->size());
+      break;
+    }
+  return this;
+}
+
 Playlist* Playlist::previous_slot() {
   int size = entries_list->size();
   if (size == 0)
@@ -38,5 +54,20 @@ Playlist* Playlist::next_slot() {
   if (index == entries_list->size())
     index = 0;
   entries_list->set_selected_index(index);
+  return this;
+}
+
+Playlist* Playlist::normal_slot() {
+  what_next = NORMAL;
+  return this;
+}
+
+Playlist* Playlist::repeat_slot() {
+  what_next = REPEAT;
+  return this;
+}
+
+Playlist* Playlist::shuffle_slot() {
+  what_next = SHUFFLE;
   return this;
 }

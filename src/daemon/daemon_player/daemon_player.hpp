@@ -14,8 +14,17 @@ namespace daemon {
     Player* play_slot();
     Player* pause_slot();
     Player* volume_slot(int value);
+  private slots:
+    Player* duration_changed(qint64 value);
+    Player* metadata_changed();
+    Player* state_changed(QMediaPlayer::State value);
   private:
+    bool terminated = false;
     QMediaPlayer* player;
+  signals:
+    void done_signal(bool terminated);
+    void duration_signal(int value);
+    void title_signal(const QString& value);
   };
 }
 

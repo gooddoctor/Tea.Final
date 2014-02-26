@@ -162,11 +162,13 @@ Player::Player(int, char**) : TWidget(QPixmap(":face_player/resource/background.
 
   repeat_button = new TPushButton(QPixmap(":face_player/resource/repeat.png"));
   repeat_button->setParent(this);
+  QObject::connect(repeat_button, SIGNAL(clicked()), this, SLOT(repeat_button_click_handler()));
   repeat_button->setGeometry(297, TOP_MARGIN + 32, repeat_button->sizeHint().width(), 
                              repeat_button->sizeHint().height());
 
   shuffle_button = new TPushButton(QPixmap(":face_player/resource/shuffle.png"));
   shuffle_button->setParent(this);
+  QObject::connect(shuffle_button, SIGNAL(clicked()), this, SLOT(shuffle_button_click_handler()));
   shuffle_button->setGeometry(330, TOP_MARGIN + 32, shuffle_button->sizeHint().width(), 
                               shuffle_button->sizeHint().height());
 
@@ -214,10 +216,25 @@ Player* Player::play_slot(const QString& entry) {
   return this;
 }
 
+Player* Player::title_slot(const QString& value) {
+  song_label->setText(value);
+  return this;
+}
+
+Player* Player::duration_slot(int value) {
+  duration_label->setText(QString("%1:%2")
+			  .arg(value / 60, 2, 10, QChar('0'))
+			  .arg(value % 60, 2, 10, QChar('0')));
+  return this;
+}
+
 Player* Player::open_button_click_handler() {
   QString local_file = QFileDialog::getOpenFileName(this);
-  if (!local_file.isEmpty())
+  if (!local_file.isEmpty()) {
     emit open_signal(QUrl::fromLocalFile(local_file), true);
+    if (is_play)
+      emit play_signal();
+  }
   return this;
 }
 
@@ -230,5 +247,27 @@ Player* Player::play_button_click_handler() {
     emit play_signal();
   }
   is_play = !is_play;
+  return this;
+}
+
+Player* Player::repeat_button_click_handler() {
+  if (what_next == REPEAT) {
+    what_next = NORMAL;
+    emit normal_signal();
+  } else {
+    what_next = REPEAT;
+    emit repeat_signal();
+  }
+  return this;
+}
+
+Player* Player::shuffle_button_click_handler() {
+  if (what_next == SHUFFLE) {
+    what_next = NORMAL;
+    emit normal_signal();
+  } else {
+    what_next = SHUFFLE;
+    emit shuffle_signal();
+  }
   return this;
 }

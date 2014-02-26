@@ -14,6 +14,13 @@ int main(int argc, char** argv) {
   face::Playlist* face_playlist = new face::Playlist(argc, argv);
   face::Talk* face_talk = new face::Talk(argc, argv);
 
+  QObject::connect(daemon_player, SIGNAL(done_signal(bool)),
+		   face_playlist, SLOT(done_slot(bool)));
+  QObject::connect(daemon_player, SIGNAL(duration_signal(int)),
+		   face_player, SLOT(duration_slot(int)));
+  QObject::connect(daemon_player, SIGNAL(title_signal(const QString&)),
+		   face_player, SLOT(title_slot(const QString&)));
+
   QObject::connect(face_player, SIGNAL(open_signal(const QUrl&, bool)),
  		   daemon_player, SLOT(open_slot(const QUrl&, bool)));
   QObject::connect(face_player, SIGNAL(play_signal()),
@@ -26,7 +33,13 @@ int main(int argc, char** argv) {
 		   face_playlist, SLOT(previous_slot()));
   QObject::connect(face_player, SIGNAL(next_signal()),
 		   face_playlist, SLOT(next_slot()));
-
+  QObject::connect(face_player, SIGNAL(normal_signal()),
+		   face_playlist, SLOT(next_slot())); 
+  QObject::connect(face_player, SIGNAL(repeat_signal()),
+		   face_playlist, SLOT(repeat_slot())); 
+  QObject::connect(face_player, SIGNAL(shuffle_signal()),
+		   face_playlist, SLOT(shuffle_slot())); 
+  
   QObject::connect(face_playlist, SIGNAL(play_signal(const QString&)),
 		   face_player, SLOT(play_slot(const QString&)));
 
