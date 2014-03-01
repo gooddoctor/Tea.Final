@@ -11,12 +11,14 @@ namespace daemon {
     Player(int argc, char** argv);
   public slots:
     Player* open_slot(const QUrl& file_path, bool by_user);
-    Player* play_slot();
     Player* pause_slot();
+    Player* play_slot();
+    Player* position_slot(int value);
     Player* volume_slot(int value);
   private slots:
     Player* duration_changed(qint64 value);
     Player* metadata_changed();
+    Player* position_changed(qint64 value);
     Player* state_changed(QMediaPlayer::State value);
   private:
     bool terminated = false;
@@ -24,6 +26,7 @@ namespace daemon {
   signals:
     void done_signal(bool terminated);
     void duration_signal(int value);
+    void tick_signal(int value);
     void title_signal(const QString& value);
   };
 }

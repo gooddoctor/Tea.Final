@@ -21,7 +21,7 @@ public:
   TListItem(const callback& format);
   void paint(QPainter* painter, const QStyleOptionGraphicsItem* options, QWidget* widget);
   QRectF boundingRect() const;
-  TListItem* add(const QString& entry);
+  TListItem* add(const QUrl& url_entry);
   TListItem* entry_is_selected(TPrimitiveTextItem* entry);
   TListItem* reset();
   TListItem* scroll_down();

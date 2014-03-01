@@ -15,12 +15,14 @@ namespace face {
   public slots:
     Player* play_slot(const QString& entry);
     Player* title_slot(const QString& value);
+    Player* tick_slot(int value);
     Player* duration_slot(int value);
   private slots:
     Player* open_button_click_handler();
     Player* play_button_click_handler();
     Player* repeat_button_click_handler();
     Player* shuffle_button_click_handler();
+    Player* position_slider_value_handler(int value);
   private:
     TPushButton* open_button;
     TPushButton* thumb_up_button;
@@ -47,7 +49,7 @@ namespace face {
     QWidget* content_widget;
     QLabel* song_label;
     QLabel* current_label;
-    QSlider* position_slider;
+    TSlider* position_slider;
     QLabel* duration_label;
     TPushButton* favorite_button;
 
@@ -63,6 +65,7 @@ namespace face {
     void normal_signal();
     void repeat_signal();
     void shuffle_signal();
+    void position_signal(int value);
   };
 }
 

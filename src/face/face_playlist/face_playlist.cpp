@@ -19,6 +19,12 @@ Playlist::Playlist(int, char**) : TWidget(QPixmap(":face_playlist/resource/backg
 			    entries_list->sizeHint().height());
 }
 
+Playlist* Playlist::open_slot(const QUrl& file_path, bool by_user) {
+  if (by_user)
+    entries_list->add(file_path);
+  return this;
+}
+
 Playlist* Playlist::done_slot(bool terminated) {
   if (!terminated)
     switch (what_next) {

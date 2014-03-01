@@ -188,12 +188,14 @@ Player::Player(int, char**) : TWidget(QPixmap(":face_player/resource/background.
   current_label->setGeometry(4, 23, current_label->sizeHint().width(),
                              current_label->sizeHint().height());
 
-  position_slider = new QSlider(Qt::Horizontal);
+  position_slider = new TSlider(Qt::Horizontal);
   position_slider->setParent(content_widget);
   position_slider->setMinimum(0);
   position_slider->setMaximum(100);
   position_slider->setValue(0);
   position_slider->setStyleSheet(POSITION_SLIDER_STYLE);
+  QObject::connect(position_slider, SIGNAL(valueChanged(int)),
+		   this, SLOT(position_slider_value_handler(int)));
   position_slider->setGeometry(69, 29, 223, 10);
 
   duration_label = new QLabel("00:00");
@@ -221,7 +223,17 @@ Player* Player::title_slot(const QString& value) {
   return this;
 }
 
+Player* Player::tick_slot(int value) {
+  current_label->setText(QString("%1:%2")
+			 .arg(value / 60, 2, 10, QChar('0'))
+			 .arg(value % 60, 2, 10, QChar('0')));
+  if (!position_slider->is_hover())
+    position_slider->setValue(value);
+  return this;
+}
+
 Player* Player::duration_slot(int value) {
+  position_slider->setMaximum(value);
   duration_label->setText(QString("%1:%2")
 			  .arg(value / 60, 2, 10, QChar('0'))
 			  .arg(value % 60, 2, 10, QChar('0')));
@@ -269,5 +281,11 @@ Player* Player::shuffle_button_click_handler() {
     what_next = SHUFFLE;
     emit shuffle_signal();
   }
+  return this;
+}
+
+Player* Player::position_slider_value_handler(int value) {
+  if (position_slider->is_hover())
+    emit position_signal(value);
   return this;
 }

@@ -52,7 +52,8 @@ QRectF TListItem::boundingRect() const {
   return QRectF(0, 0, WIDTH, HEIGHT);
 }
 
-TListItem* TListItem::add(const QString& entry) {
+TListItem* TListItem::add(const QUrl& url_entry) {
+  QString entry = url_entry.path(); 
   TPrimitiveTextItem* item = new TPrimitiveTextItem(format(entry));
   item->setParentItem(this);
   item->setFont(TEXT_FONT);
@@ -126,7 +127,7 @@ void TListItem::dragEnterEvent(QGraphicsSceneDragDropEvent* event) {
 void TListItem::dropEvent(QGraphicsSceneDragDropEvent* event) {
   QList<QUrl> urls = event->mimeData()->urls();
   for (auto it = urls.begin(); it != urls.end(); it++)
-    add(it->path());
+    add(*it);
 }
 
 void TListItem::wheelEvent(QGraphicsSceneWheelEvent* event) {

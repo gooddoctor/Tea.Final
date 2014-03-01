@@ -18,11 +18,15 @@ int main(int argc, char** argv) {
 		   face_playlist, SLOT(done_slot(bool)));
   QObject::connect(daemon_player, SIGNAL(duration_signal(int)),
 		   face_player, SLOT(duration_slot(int)));
+  QObject::connect(daemon_player, SIGNAL(tick_signal(int)),
+		   face_player, SLOT(tick_slot(int)));
   QObject::connect(daemon_player, SIGNAL(title_signal(const QString&)),
 		   face_player, SLOT(title_slot(const QString&)));
 
   QObject::connect(face_player, SIGNAL(open_signal(const QUrl&, bool)),
  		   daemon_player, SLOT(open_slot(const QUrl&, bool)));
+  QObject::connect(face_player, SIGNAL(open_signal(const QUrl&, bool)),
+		   face_playlist, SLOT(open_slot(const QUrl&, bool)));
   QObject::connect(face_player, SIGNAL(play_signal()),
 		   daemon_player, SLOT(play_slot()));
   QObject::connect(face_player, SIGNAL(pause_signal()),
@@ -39,7 +43,9 @@ int main(int argc, char** argv) {
 		   face_playlist, SLOT(repeat_slot())); 
   QObject::connect(face_player, SIGNAL(shuffle_signal()),
 		   face_playlist, SLOT(shuffle_slot())); 
-  
+  QObject::connect(face_player, SIGNAL(position_signal(int)),
+		   daemon_player, SLOT(position_slot(int))); 
+
   QObject::connect(face_playlist, SIGNAL(play_signal(const QString&)),
 		   face_player, SLOT(play_slot(const QString&)));
 

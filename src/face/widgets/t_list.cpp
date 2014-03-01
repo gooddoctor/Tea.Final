@@ -21,6 +21,11 @@ TList::TList(const callback& format) {
   setAcceptDrops(true);
 }
 
+TList* TList::add(const QUrl& entry) {
+  entries_list->add(entry);
+  return this;
+}
+
 int TList::get_selected_index() {
   return entries_list->get_selected_index();
 }

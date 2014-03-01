@@ -9,6 +9,7 @@ namespace face {
   public:
     Playlist(int argc, char** argv);
   public slots:
+    Playlist* open_slot(const QUrl& file_path, bool by_user);
     Playlist* done_slot(bool terminated);
     Playlist* previous_slot();
     Playlist* next_slot();

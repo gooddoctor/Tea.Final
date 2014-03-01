@@ -12,6 +12,7 @@ class TList : public QGraphicsView { Q_OBJECT
 typedef std::function<QString(const QString&)> callback;
 public:
   TList(const callback& format);
+  TList* add(const QUrl& entry);
   int get_selected_index();
   TList* set_selected_index(int index);
   int size();
