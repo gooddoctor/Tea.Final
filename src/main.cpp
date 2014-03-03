@@ -45,6 +45,8 @@ int main(int argc, char** argv) {
 		   face_playlist, SLOT(shuffle_slot())); 
   QObject::connect(face_player, SIGNAL(position_signal(int)),
 		   daemon_player, SLOT(position_slot(int))); 
+  QObject::connect(face_player, SIGNAL(favorite_signal()),
+		   daemon_player, SLOT(favorite_slot())); 
 
   QObject::connect(face_playlist, SIGNAL(play_signal(const QString&)),
 		   face_player, SLOT(play_slot(const QString&)));

@@ -10,7 +10,7 @@ QMAKE_CXX = clang++
 QMAKE_LINK = clang++
 QMAKE_CXXFLAGS += -std=c++11 
 
-QT += widgets multimedia
+QT += widgets multimedia xml
 
 include(daemon/include.inc)
 include(face/include.inc)

@@ -206,6 +206,7 @@ Player::Player(int, char**) : TWidget(QPixmap(":face_player/resource/background.
 
   favorite_button = new TPushButton(QPixmap(":face_player/resource/favorite.png"));
   favorite_button->setParent(content_widget);
+  QObject::connect(favorite_button, SIGNAL(clicked()), this, SIGNAL(favorite_signal()));
   favorite_button->setGeometry(352, 26, favorite_button->sizeHint().width(), 
                                favorite_button->sizeHint().height());
 }

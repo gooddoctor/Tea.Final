@@ -66,6 +66,7 @@ namespace face {
     void repeat_signal();
     void shuffle_signal();
     void position_signal(int value);
+    void favorite_signal();
   };
 }
 

@@ -1,5 +1,6 @@
 #include <QMediaMetaData>
 
+#include "staff/staff_storage.hpp"
 #include "daemon_player.hpp"
 
 using namespace daemon;
@@ -52,6 +53,19 @@ Player* Player::pause_slot() {
   
 Player* Player::volume_slot(int value) {
   player->setVolume(value);
+  return this;
+}
+
+Player* Player::favorite_slot() {
+  if (player->isMetaDataAvailable()) {
+    QString title = QString("%1:%2").arg(player->metaData(QMediaMetaData::AlbumArtist).toString())
+				    .arg(player->metaData(QMediaMetaData::Title).toString());
+    QString path = player->media().canonicalUrl().path();
+    if (staff::Storage::comming_in_fast().is_mark(title, path))
+      staff::Storage::comming_in_fast().unmark(title, path);
+    else
+      staff::Storage::comming_in_fast().mark(title, path);
+  }
   return this;
 }
 

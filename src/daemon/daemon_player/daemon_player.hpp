@@ -15,6 +15,7 @@ namespace daemon {
     Player* play_slot();
     Player* position_slot(int value);
     Player* volume_slot(int value);
+    Player* favorite_slot();
   private slots:
     Player* duration_changed(qint64 value);
     Player* metadata_changed();
