@@ -107,10 +107,12 @@ Player::Player(int, char**) : TWidget(QPixmap(":face_player/resource/background.
   search_widget->setStyleSheet(SEARCH_WIDGET_STYLE);
   search_widget->setGeometry(189, TOP_MARGIN, 165, 28);
 
-  search_line_edit = new QLineEdit();
+  search_line_edit = new TLineEdit();
   search_line_edit->setParent(search_widget);
   search_line_edit->setAutoFillBackground(true);
   search_line_edit->setStyleSheet(SEARCH_LINE_EDIT_STYLE);
+  QObject::connect(search_line_edit, SIGNAL(complete(const QString&, QStringList&)),
+		   this, SIGNAL(complete_signal(const QString&, QStringList&)), Qt::DirectConnection);
   search_line_edit->setGeometry(4, 4, 135, 21);
 
   search_button = new TPushButton(QPixmap(":face_player/resource/search.png"));

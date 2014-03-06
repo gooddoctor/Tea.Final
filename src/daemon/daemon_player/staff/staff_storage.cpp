@@ -21,6 +21,17 @@ Storage::Storage() : storage("likes") {
   }
 }
 
+Storage::Entries Storage::select(const QString& query) {
+  Entries entries;
+  for (QDomElement entry = storage.documentElement().firstChildElement(); !entry.isNull();
+       entry = entry.nextSiblingElement()) {
+    if (entry.attribute("title").contains(query, Qt::CaseInsensitive) ||
+        entry.attribute("path").contains(query, Qt::CaseInsensitive))
+      entries.push_back({entry.attribute("title"), entry.attribute("path")});
+  }
+  return entries;
+}
+
 bool Storage::is_mark(const QString& title, const QString& path) {
   return !find(title, path).isNull();
 }

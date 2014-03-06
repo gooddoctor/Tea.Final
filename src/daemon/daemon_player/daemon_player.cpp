@@ -69,6 +69,15 @@ Player* Player::favorite_slot() {
   return this;
 }
 
+Player* Player::complete_slot(const QString value, QStringList& values) {
+  staff::Storage::Entries entries = staff::Storage::comming_in_fast().select(value);
+  std::transform(entries.begin(), entries.end(), std::back_inserter(values),
+		 [](std::pair<QString, QString> entry) {
+		   return entry.first;
+		 });
+  return this;
+}
+
 Player* Player::duration_changed(qint64 value) {
   emit duration_signal(value / 1000);
   return this;

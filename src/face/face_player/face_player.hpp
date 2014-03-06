@@ -32,7 +32,7 @@ namespace face {
     TPushButton* talk_button;
 
     QWidget* search_widget;
-    QLineEdit* search_line_edit;
+    TLineEdit* search_line_edit;
     TPushButton* search_button;
 
     TPushButton* minimize_button;
@@ -67,6 +67,7 @@ namespace face {
     void shuffle_signal();
     void position_signal(int value);
     void favorite_signal();
+    void complete_signal(const QString& value, QStringList& values);
   };
 }
 
