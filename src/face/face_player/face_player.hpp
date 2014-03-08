@@ -57,6 +57,8 @@ namespace face {
     State what_next = NORMAL;
   signals:
     void open_signal(const QUrl& file_path, bool by_user);
+    void thumb_up_signal();
+    void thumb_down_signal();
     void previous_signal();
     void play_signal();
     void pause_signal();

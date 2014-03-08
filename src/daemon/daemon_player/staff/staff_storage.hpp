@@ -18,10 +18,13 @@ namespace staff {
       return instance;
     }
     Entries select(const QString& query);
+    int down(const QString& title, const QString& path);
+    int up(const QString& title, const QString& path);
     bool is_mark(const QString& title, const QString& path);
     Storage* mark(const QString& title, const QString& path);
     Storage* unmark(const QString& title, const QString& path);
   private:
+    int inc(const QString& title, const QString& path, const QString attr);
     QDomElement find(const QString& title, const QString& path);
     Storage* save();
   private:

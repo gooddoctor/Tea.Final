@@ -32,6 +32,14 @@ Storage::Entries Storage::select(const QString& query) {
   return entries;
 }
 
+int Storage::down(const QString& title, const QString& path) {
+  return inc(title, path, "hates");
+}
+
+int Storage::up(const QString& title, const QString& path) {
+  return inc(title, path, "loves");
+}
+
 bool Storage::is_mark(const QString& title, const QString& path) {
   return !find(title, path).isNull();
 }
@@ -52,6 +60,21 @@ Storage* Storage::unmark(const QString& title, const QString& path) {
     save();
   }
   return this;
+}
+
+int Storage::inc(const QString& title, const QString& path, const QString attr) {
+  QDomElement entry = find(title, path);
+  if (!entry.isNull()) {
+    QString attr_value = entry.attribute(attr);
+    if (attr_value.isEmpty())
+      entry.setAttribute(attr, 1);
+    else
+      entry.setAttribute(attr, attr_value.toInt() + 1);
+    save();
+    return entry.attribute(attr).toInt();
+  } else {
+    return -1;
+  }
 }
 
 QDomElement Storage::find(const QString& title, const QString& path) {

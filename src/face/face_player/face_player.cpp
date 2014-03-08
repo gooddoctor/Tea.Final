@@ -77,6 +77,7 @@ Player::Player(int, char**) : TWidget(QPixmap(":face_player/resource/background.
 
   thumb_up_button = new TPushButton(QPixmap(":face_player/resource/thumb_up.png"));
   thumb_up_button->setParent(this);
+  QObject::connect(thumb_up_button, SIGNAL(clicked()), this, SIGNAL(thumb_up_signal()));
   thumb_up_button->setGeometry(74, TOP_MARGIN, thumb_up_button->sizeHint().width(), 
                                thumb_up_button->sizeHint().height());
   					
@@ -88,6 +89,7 @@ Player::Player(int, char**) : TWidget(QPixmap(":face_player/resource/background.
 
   thumb_down_button = new TPushButton(QPixmap(":face_player/resource/thumb_down.png"));
   thumb_down_button->setParent(this);
+  QObject::connect(thumb_down_button, SIGNAL(clicked()), this, SIGNAL(thumb_down_signal()));
   thumb_down_button->setGeometry(107, TOP_MARGIN, thumb_down_button->sizeHint().width(), 
                                  thumb_down_button->sizeHint().height());
 

@@ -27,6 +27,10 @@ int main(int argc, char** argv) {
  		   daemon_player, SLOT(open_slot(const QUrl&, bool)));
   QObject::connect(face_player, SIGNAL(open_signal(const QUrl&, bool)),
 		   face_playlist, SLOT(open_slot(const QUrl&, bool)));
+  QObject::connect(face_player, SIGNAL(thumb_up_signal()), 
+		   daemon_player, SLOT(thumb_up_slot()));
+  QObject::connect(face_player, SIGNAL(thumb_down_signal()), 
+		   daemon_player, SLOT(thumb_down_slot()));
   QObject::connect(face_player, SIGNAL(play_signal()),
 		   daemon_player, SLOT(play_slot()));
   QObject::connect(face_player, SIGNAL(pause_signal()),

@@ -46,6 +46,26 @@ Player* Player::position_slot(int value) {
   return this;
 }
 
+Player* Player::thumb_up_slot() {
+  QString title_value = title();
+  if (!title_value.isEmpty()) {
+    int count = staff::Storage::comming_in_fast().up(title_value, 
+						     player->media().canonicalUrl().path());
+    emit thumb_up_signal(count);
+  }
+  return this;
+}
+
+Player* Player::thumb_down_slot() {
+  QString title_value = title();
+  if (!title_value.isEmpty()) {
+    int count = staff::Storage::comming_in_fast().down(title_value, 
+						       player->media().canonicalUrl().path());
+    emit thumb_down_signal(count);
+  }
+  return this;
+}
+
 Player* Player::pause_slot() {
   player->pause();
   return this;
@@ -57,14 +77,13 @@ Player* Player::volume_slot(int value) {
 }
 
 Player* Player::favorite_slot() {
-  if (player->isMetaDataAvailable()) {
-    QString title = QString("%1:%2").arg(player->metaData(QMediaMetaData::AlbumArtist).toString())
-				    .arg(player->metaData(QMediaMetaData::Title).toString());
-    QString path = player->media().canonicalUrl().path();
-    if (staff::Storage::comming_in_fast().is_mark(title, path))
-      staff::Storage::comming_in_fast().unmark(title, path);
+  QString title_value = title();
+  if (!title_value.isEmpty()) {
+    QString path_value = player->media().canonicalUrl().path();
+    if (staff::Storage::comming_in_fast().is_mark(title_value, path_value))
+      staff::Storage::comming_in_fast().unmark(title_value, path_value);
     else
-      staff::Storage::comming_in_fast().mark(title, path);
+      staff::Storage::comming_in_fast().mark(title_value, path_value);
   }
   return this;
 }
@@ -84,9 +103,9 @@ Player* Player::duration_changed(qint64 value) {
 }
 
 Player* Player::metadata_changed() {
-  if (player->isMetaDataAvailable())
-    emit title_signal(QString("%1:%2").arg(player->metaData(QMediaMetaData::AlbumArtist).toString())
-				      .arg(player->metaData(QMediaMetaData::Title).toString()));
+  QString value = title();
+  if (!value.isEmpty())
+    emit title_signal(value);
   return this;
 }
 
@@ -101,4 +120,12 @@ Player* Player::state_changed(QMediaPlayer::State value) {
     terminated = false;
   }
   return this;
+}
+
+QString Player::title() {
+  if (player->isMetaDataAvailable())
+    return QString("%1:%2").arg(player->metaData(QMediaMetaData::AlbumArtist).toString())
+			   .arg(player->metaData(QMediaMetaData::Title).toString());
+  else
+    return "";
 }
