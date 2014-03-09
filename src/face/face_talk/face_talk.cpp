@@ -57,6 +57,7 @@ Talk::Talk(int, char**) : TWidget(QPixmap(":face_talk/resource/background.png"))
 
   send_button = new TPushButton(QPixmap(":face_talk/resource/send.png"));
   send_button->setParent(this);
+  QObject::connect(send_button, SIGNAL(clicked()), this, SLOT(send_button_handler()));
   send_button->setGeometry(280 + LEFT_MARGIN, 40 + TOP_MARGIN, send_button->sizeHint().width(),
 			   send_button->sizeHint().height());
 
@@ -67,3 +68,15 @@ Talk::Talk(int, char**) : TWidget(QPixmap(":face_talk/resource/background.png"))
   message_text_edit->setGeometry(LEFT_MARGIN, 67 + TOP_MARGIN, 410, 90);
 }
 
+Talk* Talk::title_slot(const QString& value) {
+  title_label->setText(value);
+  return this;
+}
+
+Talk* Talk::send_button_handler() {
+  QString name = name_line_edit->text();
+  QString content = message_text_edit->toPlainText();
+  if (!name.isEmpty() && !content.isEmpty())
+    emit comment_signal(name, content);
+  return this;
+}

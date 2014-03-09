@@ -97,6 +97,15 @@ Player* Player::complete_slot(const QString value, QStringList& values) {
   return this;
 }
 
+Player* Player::comment_slot(const QString& name, const QString& content) {
+  QString title_value = title();
+  if (!title_value.isEmpty()) {
+    QString path_value = player->media().canonicalUrl().path();
+    staff::Storage::comming_in_fast().comment(title_value, path_value, name, content);
+  }
+  return this;
+}
+
 Player* Player::duration_changed(qint64 value) {
   emit duration_signal(value / 1000);
   return this;

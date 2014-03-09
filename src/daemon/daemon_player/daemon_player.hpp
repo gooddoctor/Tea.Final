@@ -19,6 +19,7 @@ namespace daemon {
     Player* volume_slot(int value);
     Player* favorite_slot();
     Player* complete_slot(const QString value, QStringList& values);
+    Player* comment_slot(const QString& name, const QString& content);
   private slots:
     Player* duration_changed(qint64 value);
     Player* metadata_changed();
