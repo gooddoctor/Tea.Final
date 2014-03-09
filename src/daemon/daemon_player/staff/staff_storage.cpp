@@ -21,6 +21,31 @@ Storage::Storage() : storage("likes") {
   }
 }
 
+Storage* Storage::comment(const QString& title, const QString& path,
+                          const QString& name,  const QString& content) {
+  QDomElement entry = find(title, path);
+  if (!entry.isNull()) {
+    QDomElement comment_entry = storage.createElement("comment");
+    comment_entry.setAttribute("name", name);
+    comment_entry.appendChild(storage.createTextNode(content));
+    entry.appendChild(comment_entry);
+    save();
+  }
+  return this;
+}
+
+Storage::Comments Storage::comments(const QString& title, const QString& path) {
+  Comments comments;
+  QDomElement entry = find(title, path);
+  if (!entry.isNull()) {
+    for (QDomElement comment = entry.firstChildElement(); !comment.isNull(); 
+	 comment = comment.nextSiblingElement()) {
+      comments.push_back({comment.attribute("name"), comment.firstChild().toText().data()});
+    }
+  }
+  return comments;
+}
+
 Storage::Entries Storage::select(const QString& query) {
   Entries entries;
   for (QDomElement entry = storage.documentElement().firstChildElement(); !entry.isNull();
