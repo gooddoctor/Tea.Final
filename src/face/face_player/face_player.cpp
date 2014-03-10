@@ -176,6 +176,10 @@ Player::Player(int, char**) : TWidget(QPixmap(":face_player/resource/background.
   shuffle_button->setGeometry(330, TOP_MARGIN + 32, shuffle_button->sizeHint().width(), 
                               shuffle_button->sizeHint().height());
 
+  TButtonGroup* button_group = new TButtonGroup();
+  button_group->add_button(repeat_button);
+  button_group->add_button(shuffle_button);
+
   content_widget = new QWidget();
   content_widget->setParent(this);
   content_widget->setStyleSheet(CONTENT_WIDGET_STYLE);
