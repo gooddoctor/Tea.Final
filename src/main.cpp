@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
   QObject::connect(face_player, SIGNAL(next_signal()),
 		   face_playlist, SLOT(next_slot()));
   QObject::connect(face_player, SIGNAL(normal_signal()),
-		   face_playlist, SLOT(next_slot())); 
+		   face_playlist, SLOT(normal_slot())); 
   QObject::connect(face_player, SIGNAL(repeat_signal()),
 		   face_playlist, SLOT(repeat_slot())); 
   QObject::connect(face_player, SIGNAL(shuffle_signal()),

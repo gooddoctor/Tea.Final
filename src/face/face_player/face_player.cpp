@@ -164,13 +164,13 @@ Player::Player(int, char**) : TWidget(QPixmap(":face_player/resource/background.
   QObject::connect(volume_slider, SIGNAL(valueChanged(int)), this, SIGNAL(volume_signal(int)));
   volume_slider->setGeometry(189, TOP_MARGIN + 32 + 32 / 2 - 5, 93, 10);
 
-  repeat_button = new TPushButton(QPixmap(":face_player/resource/repeat.png"));
+  repeat_button = new TCheckButton(QPixmap(":face_player/resource/repeat.png"));
   repeat_button->setParent(this);
   QObject::connect(repeat_button, SIGNAL(clicked()), this, SLOT(repeat_button_click_handler()));
   repeat_button->setGeometry(297, TOP_MARGIN + 32, repeat_button->sizeHint().width(), 
                              repeat_button->sizeHint().height());
 
-  shuffle_button = new TPushButton(QPixmap(":face_player/resource/shuffle.png"));
+  shuffle_button = new TCheckButton(QPixmap(":face_player/resource/shuffle.png"));
   shuffle_button->setParent(this);
   QObject::connect(shuffle_button, SIGNAL(clicked()), this, SLOT(shuffle_button_click_handler()));
   shuffle_button->setGeometry(330, TOP_MARGIN + 32, shuffle_button->sizeHint().width(), 
@@ -208,7 +208,7 @@ Player::Player(int, char**) : TWidget(QPixmap(":face_player/resource/background.
   duration_label->setGeometry(295, 23, duration_label->sizeHint().width(),
                               duration_label->sizeHint().height());
 
-  favorite_button = new TPushButton(QPixmap(":face_player/resource/favorite.png"));
+  favorite_button = new TCheckButton(QPixmap(":face_player/resource/favorite.png"));
   favorite_button->setParent(content_widget);
   QObject::connect(favorite_button, SIGNAL(clicked()), this, SIGNAL(favorite_signal()));
   favorite_button->setGeometry(352, 26, favorite_button->sizeHint().width(), 

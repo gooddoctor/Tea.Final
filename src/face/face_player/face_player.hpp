@@ -43,15 +43,15 @@ namespace face {
     TPushButton* next_button;
     TPushButton* volume_button;
     QSlider* volume_slider;
-    TPushButton* repeat_button;
-    TPushButton* shuffle_button;
+    TCheckButton* repeat_button;
+    TCheckButton* shuffle_button;
 
     QWidget* content_widget;
     QLabel* song_label;
     QLabel* current_label;
     TSlider* position_slider;
     QLabel* duration_label;
-    TPushButton* favorite_button;
+    TCheckButton* favorite_button;
 
     bool is_play = false;
     State what_next = NORMAL;
