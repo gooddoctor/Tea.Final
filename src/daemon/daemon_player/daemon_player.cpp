@@ -113,8 +113,19 @@ Player* Player::duration_changed(qint64 value) {
 
 Player* Player::metadata_changed() {
   QString value = title();
-  if (!value.isEmpty())
+  if (!value.isEmpty()) {
     emit title_signal(value);
+    //get and fire comments
+    staff::Storage::Comments comments = staff::Storage::comming_in_fast().
+					comments(value, player->media().canonicalUrl().path());
+    QStringList names;
+    QStringList contents;
+    for (auto it = comments.begin(); it != comments.end(); it++) {
+      names.push_back(it->first);
+      contents.push_back(it->second);
+    }
+    emit comments_signal(names, contents);
+  }
   return this;
 }
 

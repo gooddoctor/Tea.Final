@@ -1,6 +1,7 @@
 #include <cassert>
 
 #include <QFile>
+#include <QVBoxLayout>
 
 #include "face_talk.hpp"
 
@@ -29,6 +30,11 @@ const char* MESSAGE_TEXT_EDIT_STYLE =
     "background-color: #FFFFFF;"
     "color: #000000;"
     "border: 2px solid #213d6c;"
+  "}";
+const char* CHAT_SCROLL_AREA_STYLE =
+  "QScrollArea { "
+    "border: 0;"
+    "background-color: #2d2c21;"
   "}";
 
 QString read(const char* path) {
@@ -66,10 +72,36 @@ Talk::Talk(int, char**) : TWidget(QPixmap(":face_talk/resource/background.png"))
   message_text_edit->setAutoFillBackground(true);
   message_text_edit->setStyleSheet(MESSAGE_TEXT_EDIT_STYLE);
   message_text_edit->setGeometry(LEFT_MARGIN, 67 + TOP_MARGIN, 410, 90);
+
+  chat_scroll_area = new QScrollArea();
+  chat_scroll_area->setParent(this);
+  chat_scroll_area->setStyleSheet(CHAT_SCROLL_AREA_STYLE);
+  chat_scroll_area->setGeometry(LEFT_MARGIN, 170 + TOP_MARGIN, 414, 180);
 }
 
 Talk* Talk::title_slot(const QString& value) {
   title_label->setText(value);
+  return this;
+}
+
+Talk* Talk::comments_slot(const QStringList& names, const QStringList& contents) {
+  Q_ASSERT(names.size() == contents.size());
+  QWidget* widget = new QWidget();
+  widget->setStyleSheet("QWidget { "
+			  "background-color: #2d2c21;"
+ 			"}");
+  widget->setLayout(new QVBoxLayout());
+  for (int i = 0; i < names.size(); i++) {
+    QLabel* comment = new QLabel();
+    comment->setText(names[i] + ":\n" + contents[i]);
+    comment->setStyleSheet("QWidget { "
+			     "background-color: #cecece;"
+			   "}");
+    comment->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+    widget->layout()->addWidget(comment);
+  }
+  widget->resize(390, widget->sizeHint().height());
+  chat_scroll_area->setWidget(widget);
   return this;
 }
 

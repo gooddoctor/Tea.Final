@@ -22,6 +22,10 @@ int main(int argc, char** argv) {
 		   face_player, SLOT(tick_slot(int)));
   QObject::connect(daemon_player, SIGNAL(title_signal(const QString&)),
 		   face_player, SLOT(title_slot(const QString&)));
+  QObject::connect(daemon_player, SIGNAL(title_signal(const QString&)),
+		   face_talk, SLOT(title_slot(const QString&)));
+  QObject::connect(daemon_player, SIGNAL(comments_signal(const QStringList&, const QStringList&)),
+		   face_talk, SLOT(comments_slot(const QStringList&, const QStringList&)));
 
   QObject::connect(face_player, SIGNAL(open_signal(const QUrl&, bool)),
  		   daemon_player, SLOT(open_slot(const QUrl&, bool)));

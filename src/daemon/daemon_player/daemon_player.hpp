@@ -37,6 +37,7 @@ namespace daemon {
     void duration_signal(int value);
     void tick_signal(int value);
     void title_signal(const QString& value);
+    void comments_signal(const QStringList& names, const QStringList& contents);
   };
 }
 

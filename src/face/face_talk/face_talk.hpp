@@ -3,6 +3,7 @@
 
 #include <QLabel>
 #include <QLineEdit>
+#include <QScrollArea>
 #include <QTextEdit>
 
 #include "../face_talk.hpp"
@@ -13,6 +14,7 @@ namespace face {
     Talk(int argc, char** argv);
   public slots:
     Talk* title_slot(const QString& value);
+    Talk* comments_slot(const QStringList& names, const QStringList& contents);
   private slots:
     Talk* send_button_handler();
   private:
@@ -21,6 +23,7 @@ namespace face {
     QLineEdit* name_line_edit;
     TPushButton* send_button;
     QTextEdit* message_text_edit;
+    QScrollArea* chat_scroll_area;
   signals:
     void comment_signal(const QString& name, const QString& content);
   };
