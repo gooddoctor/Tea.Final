@@ -26,7 +26,9 @@ namespace daemon {
     Player* position_changed(qint64 value);
     Player* state_changed(QMediaPlayer::State value);
   private:
+    QString path();
     QString title();
+    Player* emit_comments_signal();
   private:
     bool terminated = false;
     QMediaPlayer* player;
@@ -37,6 +39,7 @@ namespace daemon {
     void duration_signal(int value);
     void tick_signal(int value);
     void title_signal(const QString& value);
+    void favorite_signal(bool value);
     void comments_signal(const QStringList& names, const QStringList& contents);
   };
 }

@@ -49,8 +49,7 @@ Player* Player::position_slot(int value) {
 Player* Player::thumb_up_slot() {
   QString title_value = title();
   if (!title_value.isEmpty()) {
-    int count = staff::Storage::comming_in_fast().up(title_value, 
-						     player->media().canonicalUrl().path());
+    int count = staff::Storage::comming_in_fast().up(title_value, path());
     emit thumb_up_signal(count);
   }
   return this;
@@ -59,8 +58,7 @@ Player* Player::thumb_up_slot() {
 Player* Player::thumb_down_slot() {
   QString title_value = title();
   if (!title_value.isEmpty()) {
-    int count = staff::Storage::comming_in_fast().down(title_value, 
-						       player->media().canonicalUrl().path());
+    int count = staff::Storage::comming_in_fast().down(title_value, path());
     emit thumb_down_signal(count);
   }
   return this;
@@ -79,7 +77,7 @@ Player* Player::volume_slot(int value) {
 Player* Player::favorite_slot() {
   QString title_value = title();
   if (!title_value.isEmpty()) {
-    QString path_value = player->media().canonicalUrl().path();
+    QString path_value = path();
     if (staff::Storage::comming_in_fast().is_mark(title_value, path_value))
       staff::Storage::comming_in_fast().unmark(title_value, path_value);
     else
@@ -100,8 +98,8 @@ Player* Player::complete_slot(const QString value, QStringList& values) {
 Player* Player::comment_slot(const QString& name, const QString& content) {
   QString title_value = title();
   if (!title_value.isEmpty()) {
-    QString path_value = player->media().canonicalUrl().path();
-    staff::Storage::comming_in_fast().comment(title_value, path_value, name, content);
+    staff::Storage::comming_in_fast().comment(title_value, path(), name, content);
+    emit_comments_signal();
   }
   return this;
 }
@@ -115,16 +113,8 @@ Player* Player::metadata_changed() {
   QString value = title();
   if (!value.isEmpty()) {
     emit title_signal(value);
-    //get and fire comments
-    staff::Storage::Comments comments = staff::Storage::comming_in_fast().
-					comments(value, player->media().canonicalUrl().path());
-    QStringList names;
-    QStringList contents;
-    for (auto it = comments.begin(); it != comments.end(); it++) {
-      names.push_back(it->first);
-      contents.push_back(it->second);
-    }
-    emit comments_signal(names, contents);
+    emit favorite_signal(staff::Storage::comming_in_fast().is_mark(value, path()));
+    emit_comments_signal();
   }
   return this;
 }
@@ -142,6 +132,10 @@ Player* Player::state_changed(QMediaPlayer::State value) {
   return this;
 }
 
+QString Player::path() {
+  return player->media().canonicalUrl().path();
+}
+
 QString Player::title() {
   if (player->isMetaDataAvailable())
     return QString("%1:%2").arg(player->metaData(QMediaMetaData::AlbumArtist).toString())
@@ -149,3 +143,15 @@ QString Player::title() {
   else
     return "";
 }
+
+Player* Player::emit_comments_signal() {
+  staff::Storage::Comments comments = staff::Storage::comming_in_fast().comments(title(), path());
+  QStringList names;
+  QStringList contents;
+  for (auto it = comments.begin(); it != comments.end(); it++) {
+    names.push_back(it->first);
+    contents.push_back(it->second);
+  }
+  emit comments_signal(names, contents);
+  return this;
+}  

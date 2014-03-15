@@ -249,6 +249,11 @@ Player* Player::duration_slot(int value) {
   return this;
 }
 
+Player* Player::favorite_slot(bool value) {
+  favorite_button->setChecked(value);
+  return this;
+}
+
 Player* Player::open_button_click_handler() {
   QString local_file = QFileDialog::getOpenFileName(this);
   if (!local_file.isEmpty()) {

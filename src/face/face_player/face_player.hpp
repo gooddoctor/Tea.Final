@@ -17,6 +17,7 @@ namespace face {
     Player* title_slot(const QString& value);
     Player* tick_slot(int value);
     Player* duration_slot(int value);
+    Player* favorite_slot(bool value);
   private slots:
     Player* open_button_click_handler();
     Player* play_button_click_handler();
