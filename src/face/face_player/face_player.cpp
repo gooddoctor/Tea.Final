@@ -99,11 +99,13 @@ Player::Player(int, char**) : TWidget(QPixmap(":face_player/resource/background.
   thumb_down_label->setGeometry(15, 2, thumb_down_label->sizeHint().width(),
                                 thumb_down_label->sizeHint().height());
 
-  talk_button = new TPushButton(QPixmap(":face_player/resource/talk.png"));
+  talk_button = new TCheckButton(QPixmap(":face_player/resource/talk.png"));
   talk_button->setParent(this);
+  QObject::connect(talk_button, SIGNAL(toggled(bool)),
+		   this, SLOT(talk_button_toggle_handler(bool)));
   talk_button->setGeometry(157, TOP_MARGIN, talk_button->sizeHint().width(), 
                            talk_button->sizeHint().height());
-
+  
   search_widget = new QWidget();
   search_widget->setParent(this);
   search_widget->setStyleSheet(SEARCH_WIDGET_STYLE);
@@ -126,8 +128,10 @@ Player::Player(int, char**) : TWidget(QPixmap(":face_player/resource/background.
   minimize_button->setGeometry(355, TOP_MARGIN, minimize_button->sizeHint().width(), 
                                minimize_button->sizeHint().height());
 
-  playlist_button = new TPushButton(QPixmap(":face_player/resource/playlist.png"));
+  playlist_button = new TCheckButton(QPixmap(":face_player/resource/playlist.png"));
   playlist_button->setParent(this);
+  QObject::connect(playlist_button, SIGNAL(toggled(bool)),
+		   this, SLOT(playlist_button_toggle_handler(bool)));
   playlist_button->setGeometry(LEFT_MARGIN, TOP_MARGIN + 32, 
                                playlist_button->sizeHint().width(), 
                                playlist_button->sizeHint().height());
@@ -261,6 +265,16 @@ Player* Player::open_button_click_handler() {
     if (is_play)
       emit play_signal();
   }
+  return this;
+}
+
+Player* Player::talk_button_toggle_handler(bool value) {
+  emit talk_signal(value, frameGeometry().x() + frameGeometry().width() + 2, frameGeometry().y());
+  return this;
+}
+
+Player* Player::playlist_button_toggle_handler(bool value) {
+  emit playlist_signal(value, frameGeometry().x(), frameGeometry().y() + frameGeometry().height() + 2);
   return this;
 }
 

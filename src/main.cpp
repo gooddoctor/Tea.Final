@@ -37,6 +37,10 @@ int main(int argc, char** argv) {
 		   daemon_player, SLOT(thumb_up_slot()));
   QObject::connect(face_player, SIGNAL(thumb_down_signal()), 
 		   daemon_player, SLOT(thumb_down_slot()));
+  QObject::connect(face_player, SIGNAL(talk_signal(bool, int, int)), 
+		   face_talk, SLOT(show_it(bool, int, int)));
+  QObject::connect(face_player, SIGNAL(playlist_signal(bool, int, int)), 
+		   face_playlist, SLOT(show_it(bool, int, int)));
   QObject::connect(face_player, SIGNAL(play_signal()),
 		   daemon_player, SLOT(play_slot()));
   QObject::connect(face_player, SIGNAL(pause_signal()),
@@ -68,8 +72,6 @@ int main(int argc, char** argv) {
 		   daemon_player, SLOT(comment_slot(const QString&, const QString&)));
 
   face_player->show();
-  face_playlist->show();
-  face_talk->show();
 
   return tea.exec();
 }

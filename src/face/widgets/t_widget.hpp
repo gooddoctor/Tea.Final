@@ -11,6 +11,8 @@ class TWidget : public QWidget { Q_OBJECT
 public:
   TWidget(const QPixmap& background);
   QSize sizeHint() const override;
+public slots:
+  TWidget* show_it(bool value, int x, int y);
 private:
   QPixmap background;
   TPushButton* close_button;

@@ -20,6 +20,8 @@ namespace face {
     Player* favorite_slot(bool value);
   private slots:
     Player* open_button_click_handler();
+    Player* talk_button_toggle_handler(bool value);
+    Player* playlist_button_toggle_handler(bool value);
     Player* play_button_click_handler();
     Player* repeat_button_click_handler();
     Player* shuffle_button_click_handler();
@@ -30,7 +32,7 @@ namespace face {
     QLabel* thumb_up_label;
     TPushButton* thumb_down_button;
     QLabel* thumb_down_label;
-    TPushButton* talk_button;
+    TCheckButton* talk_button;
 
     QWidget* search_widget;
     TLineEdit* search_line_edit;
@@ -38,7 +40,7 @@ namespace face {
 
     TPushButton* minimize_button;
 
-    TPushButton* playlist_button;
+    TCheckButton* playlist_button;
     TPushButton* previous_button;
     TPushButton* play_button;
     TPushButton* next_button;
@@ -60,6 +62,8 @@ namespace face {
     void open_signal(const QUrl& file_path, bool by_user);
     void thumb_up_signal();
     void thumb_down_signal();
+    void talk_signal(bool value, int x, int y);
+    void playlist_signal(bool value, int x, int y);
     void previous_signal();
     void play_signal();
     void pause_signal();

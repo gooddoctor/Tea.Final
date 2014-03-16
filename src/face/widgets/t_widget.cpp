@@ -22,6 +22,16 @@ QSize TWidget::sizeHint() const {
   return background.size();
 }
 
+TWidget* TWidget::show_it(bool value, int x, int y) {
+  if (value) {
+    show();
+    move(x, y);
+  } else {
+    hide();
+  }
+  return this;
+}
+
 void TWidget::mouseMoveEvent(QMouseEvent* event) {
   QWidget::mouseMoveEvent(event);
   if (x_offset > 0 && y_offset > 0) 
