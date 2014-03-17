@@ -48,6 +48,7 @@ OBJECTS_DIR   = ./
 SOURCES       = daemon/daemon_player/staff/staff_storage.cpp \
 		daemon/daemon_player/daemon_player.cpp \
 		face/face_player/face_player.cpp \
+		face/face_playlist/staff/staff_metadata.cpp \
 		face/face_playlist/face_playlist.cpp \
 		face/face_talk/face_talk.cpp \
 		face/widgets/items/primitive/t_primitive_text_item.cpp \
@@ -78,6 +79,7 @@ SOURCES       = daemon/daemon_player/staff/staff_storage.cpp \
 OBJECTS       = staff_storage.o \
 		daemon_player.o \
 		face_player.o \
+		staff_metadata.o \
 		face_playlist.o \
 		face_talk.o \
 		t_primitive_text_item.o \
@@ -198,6 +200,7 @@ DIST          = ../../../tools/qt/5.2.1/gcc_64/mkspecs/features/spec_pre.prf \
 		daemon/daemon_player/include.inc \
 		daemon/include.inc \
 		face/face_player/include.inc \
+		face/face_playlist/staff/include.inc \
 		face/face_playlist/include.inc \
 		face/face_talk/include.inc \
 		face/widgets/items/primitive/objects/include.inc \
@@ -350,6 +353,7 @@ Makefile: Tea.Final.pro ../../../tools/qt/5.2.1/gcc_64/mkspecs/linux-g++/qmake.c
 		daemon/daemon_player/include.inc \
 		daemon/include.inc \
 		face/face_player/include.inc \
+		face/face_playlist/staff/include.inc \
 		face/face_playlist/include.inc \
 		face/face_talk/include.inc \
 		face/widgets/items/primitive/objects/include.inc \
@@ -476,6 +480,7 @@ daemon/daemon_player/staff/include.inc:
 daemon/daemon_player/include.inc:
 daemon/include.inc:
 face/face_player/include.inc:
+face/face_playlist/staff/include.inc:
 face/face_playlist/include.inc:
 face/face_talk/include.inc:
 face/widgets/items/primitive/objects/include.inc:
@@ -516,7 +521,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/Tea.Final1.0.0 || mkdir -p .tmp/Tea.Final1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/Tea.Final1.0.0/ && $(COPY_FILE) --parents face/face_player/face_player_res.qrc face/face_playlist/face_playlist_res.qrc face/face_talk/face_talk_res.qrc face/widgets/face_widgets_res.qrc .tmp/Tea.Final1.0.0/ && $(COPY_FILE) --parents daemon/daemon_player/staff/staff_storage.hpp daemon/daemon_player/daemon_player.hpp face/face_player/face_player.hpp face/face_playlist/face_playlist.hpp face/face_talk/face_talk.hpp face/widgets/items/primitive/objects/t_object.hpp face/widgets/items/primitive/t_primitive_text_item.hpp face/widgets/items/t_list_item.hpp face/widgets/primitive/t_line_edit.hpp face/widgets/primitive/t_push_button.hpp face/widgets/primitive/t_slider.hpp face/widgets/t_button_group.hpp face/widgets/t_check_button.hpp face/widgets/t_list.hpp face/widgets/t_widget.hpp face/face_player.hpp face/face_playlist.hpp face/face_talk.hpp .tmp/Tea.Final1.0.0/ && $(COPY_FILE) --parents daemon/daemon_player/staff/staff_storage.cpp daemon/daemon_player/daemon_player.cpp face/face_player/face_player.cpp face/face_playlist/face_playlist.cpp face/face_talk/face_talk.cpp face/widgets/items/primitive/t_primitive_text_item.cpp face/widgets/items/t_list_item.cpp face/widgets/primitive/t_line_edit.cpp face/widgets/primitive/t_push_button.cpp face/widgets/primitive/t_slider.cpp face/widgets/t_button_group.cpp face/widgets/t_check_button.cpp face/widgets/t_list.cpp face/widgets/t_widget.cpp main.cpp .tmp/Tea.Final1.0.0/ && (cd `dirname .tmp/Tea.Final1.0.0` && $(TAR) Tea.Final1.0.0.tar Tea.Final1.0.0 && $(COMPRESS) Tea.Final1.0.0.tar) && $(MOVE) `dirname .tmp/Tea.Final1.0.0`/Tea.Final1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/Tea.Final1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/Tea.Final1.0.0/ && $(COPY_FILE) --parents face/face_player/face_player_res.qrc face/face_playlist/face_playlist_res.qrc face/face_talk/face_talk_res.qrc face/widgets/face_widgets_res.qrc .tmp/Tea.Final1.0.0/ && $(COPY_FILE) --parents daemon/daemon_player/staff/staff_storage.hpp daemon/daemon_player/daemon_player.hpp face/face_player/face_player.hpp face/face_playlist/staff/staff_metadata.hpp face/face_playlist/face_playlist.hpp face/face_talk/face_talk.hpp face/widgets/items/primitive/objects/t_object.hpp face/widgets/items/primitive/t_primitive_text_item.hpp face/widgets/items/t_list_item.hpp face/widgets/primitive/t_line_edit.hpp face/widgets/primitive/t_push_button.hpp face/widgets/primitive/t_slider.hpp face/widgets/t_button_group.hpp face/widgets/t_check_button.hpp face/widgets/t_list.hpp face/widgets/t_widget.hpp face/face_player.hpp face/face_playlist.hpp face/face_talk.hpp .tmp/Tea.Final1.0.0/ && $(COPY_FILE) --parents daemon/daemon_player/staff/staff_storage.cpp daemon/daemon_player/daemon_player.cpp face/face_player/face_player.cpp face/face_playlist/staff/staff_metadata.cpp face/face_playlist/face_playlist.cpp face/face_talk/face_talk.cpp face/widgets/items/primitive/t_primitive_text_item.cpp face/widgets/items/t_list_item.cpp face/widgets/primitive/t_line_edit.cpp face/widgets/primitive/t_push_button.cpp face/widgets/primitive/t_slider.cpp face/widgets/t_button_group.cpp face/widgets/t_check_button.cpp face/widgets/t_list.cpp face/widgets/t_widget.cpp main.cpp .tmp/Tea.Final1.0.0/ && (cd `dirname .tmp/Tea.Final1.0.0` && $(TAR) Tea.Final1.0.0.tar Tea.Final1.0.0 && $(COMPRESS) Tea.Final1.0.0.tar) && $(MOVE) `dirname .tmp/Tea.Final1.0.0`/Tea.Final1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/Tea.Final1.0.0
 
 
 clean:compiler_clean 
@@ -541,22 +546,22 @@ compiler_rcc_make_all: qrc_face_player_res.cpp qrc_face_playlist_res.cpp qrc_fac
 compiler_rcc_clean:
 	-$(DEL_FILE) qrc_face_player_res.cpp qrc_face_playlist_res.cpp qrc_face_talk_res.cpp qrc_face_widgets_res.cpp
 qrc_face_player_res.cpp: face/face_player/face_player_res.qrc \
-		face/face_player/resource/background.png \
-		face/face_player/resource/thumb_up.png \
-		face/face_player/resource/previous.png \
 		face/face_player/resource/minimize.png \
 		face/face_player/resource/playlist.png \
-		face/face_player/resource/talk.png \
-		face/face_player/resource/next.png \
-		face/face_player/resource/pause.png \
-		face/face_player/resource/thumb_down.png \
 		face/face_player/resource/shuffle.png \
 		face/face_player/resource/volume_high.png \
+		face/face_player/resource/background.png \
 		face/face_player/resource/open.png \
-		face/face_player/resource/search.png \
 		face/face_player/resource/play.png \
+		face/face_player/resource/pause.png \
+		face/face_player/resource/thumb_down.png \
+		face/face_player/resource/favorite.png \
+		face/face_player/resource/search.png \
+		face/face_player/resource/next.png \
 		face/face_player/resource/repeat.png \
-		face/face_player/resource/favorite.png
+		face/face_player/resource/thumb_up.png \
+		face/face_player/resource/talk.png \
+		face/face_player/resource/previous.png
 	/home/gooddocteur/tools/qt/5.2.1/gcc_64/bin/rcc -name face_player_res face/face_player/face_player_res.qrc -o qrc_face_player_res.cpp
 
 qrc_face_playlist_res.cpp: face/face_playlist/face_playlist_res.qrc \
@@ -795,12 +800,13 @@ moc_face_player.cpp: ../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/QLabel \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qstringlistmodel.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qabstractitemmodel.h \
 		face/widgets/primitive/t_slider.hpp \
-		face/widgets/t_check_button.hpp \
+		face/widgets/t_button_group.hpp \
 		face/widgets/primitive/t_push_button.hpp \
 		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/QAbstractButton \
 		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/qabstractbutton.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qicon.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/QPixmap \
+		face/widgets/t_check_button.hpp \
 		face/widgets/t_widget.hpp \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/QMouseEvent \
 		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/QWidget \
@@ -1063,9 +1069,11 @@ moc_face_talk.cpp: ../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/QLabel \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qtextformat.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qpen.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qtextoption.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/QScrollArea \
+		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/qscrollarea.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/QTextEdit \
 		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/qtextedit.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qtextdocument.h \
 		face/face_talk.hpp \
 		face/widgets/t_widget.hpp \
@@ -2330,23 +2338,20 @@ face_player.o: face/face_player/face_player.cpp ../../../tools/qt/5.2.1/gcc_64/i
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qstringlistmodel.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qabstractitemmodel.h \
 		face/widgets/primitive/t_slider.hpp \
-		face/widgets/t_check_button.hpp \
+		face/widgets/t_button_group.hpp \
 		face/widgets/primitive/t_push_button.hpp \
 		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/QAbstractButton \
 		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/qabstractbutton.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qicon.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/QPixmap \
+		face/widgets/t_check_button.hpp \
 		face/widgets/t_widget.hpp \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/QMouseEvent \
 		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o face_player.o face/face_player/face_player.cpp
 
-face_playlist.o: face/face_playlist/face_playlist.cpp face/face_playlist/face_playlist.hpp \
-		face/face_playlist.hpp \
-		face/widgets/t_list.hpp \
-		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/QGraphicsView \
-		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/qgraphicsview.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qmetatype.h \
+staff_metadata.o: face/face_playlist/staff/staff_metadata.cpp ../../../tools/qt/5.2.1/gcc_64/include/QtCore/QCoreApplication \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qcoreapplication.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qglobal.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qconfig.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qfeatures.h \
@@ -2383,50 +2388,177 @@ face_playlist.o: face/face_playlist/face_playlist.cpp face/face_playlist/face_pl
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qtypeinfo.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qtypetraits.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qsysinfo.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qstring.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qchar.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qbytearray.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qrefcount.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qnamespace.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qarraydata.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qstring.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qchar.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qstringbuilder.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qvarlengtharray.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qcontainerfwd.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qalgorithms.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qisenum.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qobject.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qobjectdefs.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qlist.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qalgorithms.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qiterator.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qcoreevent.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qmetatype.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qisenum.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qobject_impl.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qeventloop.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtMultimedia/QMediaMetaData \
+		../../../tools/qt/5.2.1/gcc_64/include/QtMultimedia/qmediametadata.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qpair.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtMultimedia/qtmultimediadefs.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtMultimedia/QMediaPlayer \
+		../../../tools/qt/5.2.1/gcc_64/include/QtMultimedia/qmediaplayer.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtMultimedia/qmediaobject.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qstringlist.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qdatastream.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qiodevice.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qregexp.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtMultimedia/qmultimedia.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtMultimedia/qmediacontent.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qshareddata.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtMultimedia/qmediaresource.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qmap.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qdebug.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qhash.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qtextstream.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qlocale.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qvariant.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qvector.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qpoint.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qset.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtNetwork/qnetworkrequest.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/QSharedDataPointer \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/QString \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/QUrl \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qurl.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qurlquery.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/QVariant \
+		../../../tools/qt/5.2.1/gcc_64/include/QtMultimedia/qmediaenumdebug.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qmetaobject.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtNetwork/qnetworkconfiguration.h \
+		face/face_playlist/staff/staff_metadata.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o staff_metadata.o face/face_playlist/staff/staff_metadata.cpp
+
+face_playlist.o: face/face_playlist/face_playlist.cpp face/face_playlist/staff/staff_metadata.hpp \
+		../../../tools/qt/5.2.1/gcc_64/include/QtMultimedia/QMediaPlayer \
+		../../../tools/qt/5.2.1/gcc_64/include/QtMultimedia/qmediaplayer.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtMultimedia/qmediaobject.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qobject.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qnamespace.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qglobal.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qconfig.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qfeatures.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qatomic.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qatomic_integrity.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qoldbasicatomic.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qatomic_vxworks.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qatomic_power.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qatomic_alpha.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qatomic_armv7.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qatomic_armv6.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qatomic_armv5.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qatomic_bfin.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qatomic_ia64.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qatomic_mips.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qatomic_s390.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qatomic_sh4a.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qatomic_sparc.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qatomic_x86.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qatomic_gcc.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qatomic_unix.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qmutex.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qlogging.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qflags.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qtypetraits.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qsysinfo.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qstring.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qchar.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qbytearray.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qrefcount.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qarraydata.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qlist.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qalgorithms.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qiterator.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qcoreevent.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qmetatype.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qisenum.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qobject_impl.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qstringlist.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qdatastream.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qiodevice.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qpair.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qregexp.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtMultimedia/qtmultimediadefs.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtMultimedia/qmultimedia.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtMultimedia/qmediacontent.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qshareddata.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtMultimedia/qmediaresource.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qmap.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qdebug.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qhash.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qtextstream.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qlocale.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qvariant.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qvector.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qpoint.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qset.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtNetwork/qnetworkrequest.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/QSharedDataPointer \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/QString \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/QUrl \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qurl.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qurlquery.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/QVariant \
+		../../../tools/qt/5.2.1/gcc_64/include/QtMultimedia/qmediaenumdebug.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qmetaobject.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtNetwork/qnetworkconfiguration.h \
+		face/face_playlist/face_playlist.hpp \
+		face/face_playlist.hpp \
+		face/widgets/t_list.hpp \
+		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/QGraphicsView \
+		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/qgraphicsview.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qpainter.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qrect.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qsize.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qpoint.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qscopedpointer.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qpixmap.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qpaintdevice.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qwindowdefs.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qwindowdefs_win.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qcolor.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qrgb.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qstringlist.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qdatastream.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qiodevice.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qobject.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qlist.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qiterator.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qcoreevent.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qobject_impl.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qpair.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qregexp.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qstringmatcher.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qsharedpointer.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qshareddata.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qhash.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qimage.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qtransform.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qmatrix.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qpolygon.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qvector.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qregion.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qline.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qpainterpath.h \
@@ -2446,15 +2578,6 @@ face_playlist.o: face/face_playlist/face_playlist.cpp face/face_playlist/face_pl
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qcursor.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qkeysequence.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qevent.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qvariant.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qmap.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qdebug.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qtextstream.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qlocale.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qset.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qcontiguouscache.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qurl.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qurlquery.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qfile.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qfiledevice.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qvector2d.h \
@@ -2541,17 +2664,19 @@ face_talk.o: face/face_talk/face_talk.cpp ../../../tools/qt/5.2.1/gcc_64/include
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qcontainerfwd.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qisenum.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qobject_impl.h \
-		face/face_talk/face_talk.hpp \
-		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/QLabel \
-		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/qlabel.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/qframe.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/qwidget.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qwindowdefs.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qwindowdefs_win.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qmargins.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/QVBoxLayout \
+		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/qlayout.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/qsizepolicy.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qrect.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qsize.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qpoint.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qmargins.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/qgridlayout.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/qwidget.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qwindowdefs_win.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qpaintdevice.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qpalette.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qcolor.h \
@@ -2578,7 +2703,6 @@ face_talk.o: face/face_talk/face_talk.cpp ../../../tools/qt/5.2.1/gcc_64/include
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qfont.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qfontmetrics.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qfontinfo.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/qsizepolicy.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qcursor.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qkeysequence.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qevent.h \
@@ -2593,15 +2717,21 @@ face_talk.o: face/face_talk/face_talk.cpp ../../../tools/qt/5.2.1/gcc_64/include
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qurlquery.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qvector2d.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qtouchdevice.h \
+		face/face_talk/face_talk.hpp \
+		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/QLabel \
+		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/qlabel.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/qframe.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/QLineEdit \
 		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/qlineedit.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qtextcursor.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qtextformat.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qpen.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qtextoption.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/QScrollArea \
+		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/qscrollarea.h \
+		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/QTextEdit \
 		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/qtextedit.h \
-		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qtextdocument.h \
 		face/face_talk.hpp \
 		face/widgets/t_widget.hpp \
@@ -3820,12 +3950,13 @@ main.o: main.cpp ../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/QApplication \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qstringlistmodel.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtCore/qabstractitemmodel.h \
 		face/widgets/primitive/t_slider.hpp \
-		face/widgets/t_check_button.hpp \
+		face/widgets/t_button_group.hpp \
 		face/widgets/primitive/t_push_button.hpp \
 		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/QAbstractButton \
 		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/qabstractbutton.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qicon.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/QPixmap \
+		face/widgets/t_check_button.hpp \
 		face/widgets/t_widget.hpp \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/QMouseEvent \
 		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/QWidget \
@@ -3849,6 +3980,7 @@ main.o: main.cpp ../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/QApplication \
 		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/QGraphicsSceneMouseEvent \
 		face/widgets/items/primitive/objects/t_object.hpp \
 		face/face_talk/face_talk.hpp \
+		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/QScrollArea \
 		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/QTextEdit \
 		../../../tools/qt/5.2.1/gcc_64/include/QtWidgets/qtextedit.h \
 		../../../tools/qt/5.2.1/gcc_64/include/QtGui/qtextdocument.h \

@@ -1,3 +1,5 @@
+#include "staff/staff_metadata.hpp"
+
 #include "face_playlist.hpp"
 
 using namespace face;
@@ -9,7 +11,7 @@ const char* ENTRIES_LIST_STYLE = "border: 0px";
 
 Playlist::Playlist(int, char**) : TWidget(QPixmap(":face_playlist/resource/background.png")) {
   entries_list = new TList([](const QString& entry) {
-    return entry.toUpper();
+    return staff::Metadata::comming_in_fast().title(QUrl::fromLocalFile(entry));
   });
   entries_list->setParent(this);
   entries_list->setStyleSheet(ENTRIES_LIST_STYLE);

@@ -1,3 +1,5 @@
+include(staff/include.inc)
+
 RESOURCES += $$PWD/face_playlist_res.qrc
 
 HEADERS += $$PWD/face_playlist.hpp
