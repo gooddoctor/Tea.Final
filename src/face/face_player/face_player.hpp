@@ -13,6 +13,8 @@ namespace face {
   public:
     Player(int argc, char** argv);
   public slots:
+    Player* thumb_up_slot(int value);
+    Player* thumb_down_slot(int value);
     Player* play_slot(const QString& entry);
     Player* title_slot(const QString& value);
     Player* tick_slot(int value);

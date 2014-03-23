@@ -225,6 +225,16 @@ Player::Player(int, char**) : TWidget(QPixmap(":face_player/resource/background.
                                favorite_button->sizeHint().height());
 }
 
+Player* Player::thumb_up_slot(int value) {
+  thumb_up_label->setText(value < 10 ? QString::number(value) : "@");
+  return this;
+}
+
+Player* Player::thumb_down_slot(int value) {
+  thumb_down_label->setText(value < 10 ? QString::number(value) : "@");
+  return this;
+}
+
 Player* Player::play_slot(const QString& entry) {
   Q_ASSERT(!entry.isEmpty());
   emit open_signal(QUrl::fromLocalFile(entry), false);

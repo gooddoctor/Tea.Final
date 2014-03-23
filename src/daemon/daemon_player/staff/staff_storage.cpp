@@ -65,6 +65,14 @@ int Storage::up(const QString& title, const QString& path) {
   return inc(title, path, "loves");
 }
 
+int Storage::haters(const QString& title, const QString& path) {
+  return count(title, path, "hates");
+}
+
+int Storage::lovers(const QString& title, const QString& path) {
+  return count(title, path, "loves");
+}
+
 bool Storage::is_mark(const QString& title, const QString& path) {
   return !find(title, path).isNull();
 }
@@ -87,6 +95,16 @@ Storage* Storage::unmark(const QString& title, const QString& path) {
   return this;
 }
 
+int Storage::count(const QString& title, const QString& path, const QString attr) {
+  QDomElement entry = find(title, path);
+  if (!entry.isNull()) {
+    QString attr_value = entry.attribute(attr);
+    if (!attr_value.isEmpty())
+      return attr_value.toInt();
+  }
+  return 0;
+}
+
 int Storage::inc(const QString& title, const QString& path, const QString attr) {
   QDomElement entry = find(title, path);
   if (!entry.isNull()) {
@@ -98,7 +116,7 @@ int Storage::inc(const QString& title, const QString& path, const QString attr) 
     save();
     return entry.attribute(attr).toInt();
   } else {
-    return -1;
+    return 0;
   }
 }
 

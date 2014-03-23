@@ -14,6 +14,10 @@ int main(int argc, char** argv) {
   face::Playlist* face_playlist = new face::Playlist(argc, argv);
   face::Talk* face_talk = new face::Talk(argc, argv);
 
+  QObject::connect(daemon_player, SIGNAL(thumb_up_signal(int)),
+		   face_player, SLOT(thumb_up_slot(int)));
+  QObject::connect(daemon_player, SIGNAL(thumb_down_signal(int)),
+		   face_player, SLOT(thumb_down_slot(int)));
   QObject::connect(daemon_player, SIGNAL(search_signal(const QUrl&)),
 		   face_playlist, SLOT(search_slot(const QUrl&)));
   QObject::connect(daemon_player, SIGNAL(done_signal(bool)),

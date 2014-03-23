@@ -33,6 +33,8 @@ Player* Player::open_slot(const QUrl& file_path, bool by_user) {
     player->stop();
   }
   player->setMedia(file_path);
+  emit thumb_up_signal(staff::Storage::comming_in_fast().lovers(title(), path()));
+  emit thumb_down_signal(staff::Storage::comming_in_fast().haters(title(), path()));
   return this;
 }
 
