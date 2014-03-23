@@ -11,6 +11,7 @@ namespace face {
   public slots:
     Playlist* open_slot(const QUrl& file_path, bool by_user);
     Playlist* done_slot(bool terminated);
+    Playlist* search_slot(const QUrl& file_path);
     Playlist* previous_slot();
     Playlist* next_slot();
     Playlist* normal_slot();

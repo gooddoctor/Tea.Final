@@ -117,6 +117,8 @@ Player::Player(int, char**) : TWidget(QPixmap(":face_player/resource/background.
   search_line_edit->setStyleSheet(SEARCH_LINE_EDIT_STYLE);
   QObject::connect(search_line_edit, SIGNAL(complete(const QString&, QStringList&)),
 		   this, SIGNAL(complete_signal(const QString&, QStringList&)), Qt::DirectConnection);
+  QObject::connect(search_line_edit, SIGNAL(select(const QString&)),
+		   this, SIGNAL(search_signal(const QString&)));
   search_line_edit->setGeometry(4, 4, 135, 21);
 
   search_button = new TPushButton(QPixmap(":face_player/resource/search.png"));

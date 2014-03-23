@@ -64,6 +64,13 @@ Player* Player::thumb_down_slot() {
   return this;
 }
 
+Player* Player::search_slot(const QString& value) {
+  staff::Storage::Entries entries = staff::Storage::comming_in_fast().select(value);
+  if (entries.size() > 0)
+    emit search_signal(QUrl::fromLocalFile(entries[0].second));
+  return this;
+}
+
 Player* Player::pause_slot() {
   player->pause();
   return this;

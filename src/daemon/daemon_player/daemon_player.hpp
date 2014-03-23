@@ -13,6 +13,7 @@ namespace daemon {
     Player* open_slot(const QUrl& file_path, bool by_user);
     Player* thumb_up_slot();
     Player* thumb_down_slot();
+    Player* search_slot(const QString& value);
     Player* pause_slot();
     Player* play_slot();
     Player* position_slot(int value);
@@ -35,6 +36,7 @@ namespace daemon {
   signals:
     void thumb_up_signal(int value);
     void thumb_down_signal(int values);
+    void search_signal(const QUrl& file_path);
     void done_signal(bool terminated);
     void duration_signal(int value);
     void tick_signal(int value);

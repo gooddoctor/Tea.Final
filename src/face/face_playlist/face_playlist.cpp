@@ -22,8 +22,9 @@ Playlist::Playlist(int, char**) : TWidget(QPixmap(":face_playlist/resource/backg
 }
 
 Playlist* Playlist::open_slot(const QUrl& file_path, bool by_user) {
-  if (by_user)
+  if (by_user && QFile(file_path.path()).exists()) {
     entries_list->add(file_path);
+  }
   return this;
 }
 
@@ -40,6 +41,11 @@ Playlist* Playlist::done_slot(bool terminated) {
       entries_list->set_selected_index(rand() % entries_list->size());
       break;
     }
+  return this;
+}
+
+Playlist* Playlist::search_slot(const QUrl& file_path) {
+  open_slot(file_path, true);
   return this;
 }
 

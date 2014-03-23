@@ -63,6 +63,7 @@ namespace face {
     void thumb_up_signal();
     void thumb_down_signal();
     void talk_signal(bool value, int x, int y);
+    void search_signal(const QString& value);
     void playlist_signal(bool value, int x, int y);
     void previous_signal();
     void play_signal();
