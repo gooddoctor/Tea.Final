@@ -75,9 +75,14 @@ int main(int argc, char** argv) {
 
   QObject::connect(face_playlist, SIGNAL(play_signal(const QString&)),
 		   face_player, SLOT(play_slot(const QString&)));
+  QObject::connect(face_playlist, SIGNAL(clos()),
+		   face_player, SLOT(playlist_closed()));
 
   QObject::connect(face_talk, SIGNAL(comment_signal(const QString&, const QString&)),
 		   daemon_player, SLOT(comment_slot(const QString&, const QString&)));
+  QObject::connect(face_talk, SIGNAL(clos()),
+		   face_player, SLOT(talk_closed()));
+
 
   face_player->show();
 

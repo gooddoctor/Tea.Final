@@ -23,6 +23,8 @@ protected:
   void mousePressEvent(QMouseEvent* event) override;
   void mouseReleaseEvent(QMouseEvent* event) override;
   void paintEvent(QPaintEvent* event) override;
+signals:
+  void clos();
 };
 
 #endif

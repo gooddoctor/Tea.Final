@@ -45,7 +45,7 @@ QString read(const char* path) {
 }
 
 Talk::Talk(int, char**) : TWidget(QPixmap(":face_talk/resource/background.png")) {
-  title_label = new QLabel("Bon Jovi - its my life");
+  title_label = new QLabel("Unknown");
   title_label->setParent(this);
   title_label->setStyleSheet(TITLE_LABEL_STYLE);
   title_label->setGeometry(LEFT_MARGIN, TOP_MARGIN, 370, 32);

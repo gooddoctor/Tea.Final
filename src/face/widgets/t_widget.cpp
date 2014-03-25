@@ -13,6 +13,8 @@ TWidget::TWidget(const QPixmap& background) : QWidget(nullptr, Qt::FramelessWind
 
   close_button = new TPushButton(QPixmap(":face_widgets/resource/close.png"));
   close_button->setParent(this);
+  QObject::connect(close_button, SIGNAL(clicked()), this, SLOT(close()));
+  QObject::connect(close_button, SIGNAL(clicked()), this, SIGNAL(clos()));
   close_button->setGeometry(sizeHint().width() - close_button->sizeHint().width() - RIGHT_MARGIN, 
 			    TOP_MARGIN, 
 			    close_button->sizeHint().width(), close_button->sizeHint().height());

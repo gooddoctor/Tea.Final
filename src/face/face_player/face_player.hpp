@@ -20,6 +20,8 @@ namespace face {
     Player* tick_slot(int value);
     Player* duration_slot(int value);
     Player* favorite_slot(bool value);
+    Player* playlist_closed();
+    Player* talk_closed();
   private slots:
     Player* open_button_click_handler();
     Player* talk_button_toggle_handler(bool value);
@@ -60,6 +62,8 @@ namespace face {
 
     bool is_play = false;
     State what_next = NORMAL;
+  protected:
+    void closeEvent(QCloseEvent* event) override;
   signals:
     void open_signal(const QUrl& file_path, bool by_user);
     void thumb_up_signal();

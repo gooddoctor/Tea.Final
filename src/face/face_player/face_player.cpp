@@ -1,3 +1,4 @@
+#include <QCoreApplication>
 #include <QFileDialog>
 
 #include "face_player.hpp"
@@ -270,6 +271,16 @@ Player* Player::favorite_slot(bool value) {
   return this;
 }
 
+Player* Player::playlist_closed() {
+  playlist_button->setChecked(false);
+  return this;
+}
+
+Player* Player::talk_closed() {
+  talk_button->setChecked(false);
+  return this;
+}
+
 Player* Player::open_button_click_handler() {
   QString local_file = QFileDialog::getOpenFileName(this);
   if (!local_file.isEmpty()) {
@@ -328,4 +339,9 @@ Player* Player::position_slider_value_handler(int value) {
   if (position_slider->is_hover())
     emit position_signal(value);
   return this;
+}
+
+void Player::closeEvent(QCloseEvent* event) {
+  TWidget::closeEvent(event);
+  QCoreApplication::quit();
 }
