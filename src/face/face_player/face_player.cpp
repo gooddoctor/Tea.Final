@@ -110,7 +110,7 @@ Player::Player(int, char**) : TWidget(QPixmap(":face_player/resource/background.
   search_widget = new QWidget();
   search_widget->setParent(this);
   search_widget->setStyleSheet(SEARCH_WIDGET_STYLE);
-  search_widget->setGeometry(189, TOP_MARGIN, 165, 28);
+  search_widget->setGeometry(189, TOP_MARGIN, 195, 28);
 
   search_line_edit = new TLineEdit();
   search_line_edit->setParent(search_widget);
@@ -120,16 +120,12 @@ Player::Player(int, char**) : TWidget(QPixmap(":face_player/resource/background.
 		   this, SIGNAL(complete_signal(const QString&, QStringList&)), Qt::DirectConnection);
   QObject::connect(search_line_edit, SIGNAL(select(const QString&)),
 		   this, SIGNAL(search_signal(const QString&)));
-  search_line_edit->setGeometry(4, 4, 135, 21);
+  search_line_edit->setGeometry(4, 4, 165, 21);
 
   search_button = new TPushButton(QPixmap(":face_player/resource/search.png"));
   search_button->setParent(search_widget);
-  search_button->setGeometry(140, 4, search_button->sizeHint().width(), 
+  search_button->setGeometry(170, 4, search_button->sizeHint().width(), 
                              search_button->sizeHint().height());
-  minimize_button = new TPushButton(QPixmap(":face_player/resource/minimize.png"));
-  minimize_button->setParent(this);
-  minimize_button->setGeometry(355, TOP_MARGIN, minimize_button->sizeHint().width(), 
-                               minimize_button->sizeHint().height());
 
   playlist_button = new TCheckButton(QPixmap(":face_player/resource/playlist.png"));
   playlist_button->setParent(this);
